@@ -8,6 +8,7 @@ A simple Svelte & TypeScript boilerplate for AltV :heart:
 npx degit alextwothousand/altv-svelte-ts-boilerplate my-project
 npm i
 ```
+(or just use GitHub's "use this template" functionality.)
 
 ## Thanks
 
