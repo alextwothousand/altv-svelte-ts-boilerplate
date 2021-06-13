@@ -1,12 +1,20 @@
 import svelte from "rollup-plugin-svelte";
 import commonjs from "@rollup/plugin-commonjs";
+
 import resolve from "@rollup/plugin-node-resolve";
 import livereload from "rollup-plugin-livereload";
+
 import { terser } from "rollup-plugin-terser";
 import sveltePreprocess from "svelte-preprocess";
+
 import typescript from "@rollup/plugin-typescript";
 import css from "rollup-plugin-css-only";
+
 import child_process from "child_process";
+import builtinModules from "builtin-modules";
+
+import path from "path";
+//import autoExternal from "rollup-plugin-auto-external";
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -39,6 +47,11 @@ export default {
 		name: "app",
 		file: "public/build/bundle.js"
 	},
+	external: [
+		"alt",
+		"alt-webview",
+		...builtinModules
+	],
 	plugins: [
 		svelte({
 			preprocess: sveltePreprocess(),
@@ -63,7 +76,8 @@ export default {
 		commonjs(),
 		typescript({
 			sourceMap: !production,
-			inlineSources: !production
+			inlineSources: !production,
+			tsconfig: path.join(__dirname, "tsconfig.json")
 		}),
 
 		// In dev mode, call `npm run start` once
